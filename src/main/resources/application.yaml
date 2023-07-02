@@ -1,0 +1,49 @@
+#spring:
+#  shardingsphere:
+#    datasource:
+#      names: sharding-1,sharding-2
+#      sharding-1:
+#        type: com.zaxxer.hikari.HikariDataSource # type不能为空
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        username: vincent
+#        password: vincent
+#        jdbc-url: jdbc:mysql://localhost:3306/sharding-1?autoReconnect=true&useUnicode=true&createDatabaseIfNotExist=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+#      sharding-2:
+#        type: com.zaxxer.hikari.HikariDataSource # type不能为空
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        username: vincent
+#        password: vincent
+#        jdbc-url: jdbc:mysql://localhost:3306/sharding-2?autoReconnect=true&useUnicode=true&createDatabaseIfNotExist=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+#    sharding:
+#      tables:
+#        # 设置order表的规则
+#        t_order:
+#          # 设置order表名的规则
+#          actualDataNodes: sharding-$->{1..2}.order_$->{0..1}
+#          # 设置分片策略
+#          tableStrategy:
+#            inline: # 设置分片键和算法
+#              shardingColumn: id
+#              algorithmExpression: order_$->{id % 2}
+#          # 指定order表的主键字段和生成策略
+#          keyGenerator:
+#            column: id
+#            type: SNOWFLAKE
+#    props:
+#      sql:
+#        show: true
+
+datasource:
+  sharding-1:
+    type: com.zaxxer.hikari.HikariDataSource # type不能为空
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: vincent
+    password: vincent
+    jdbc-url: jdbc:mysql://localhost:3306/sharding-1?autoReconnect=true&useUnicode=true&createDatabaseIfNotExist=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+  sharding-2:
+    type: com.zaxxer.hikari.HikariDataSource # type不能为空
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: vincent
+    password: vincent
+    jdbc-url: jdbc:mysql://localhost:3306/sharding-2?autoReconnect=true&useUnicode=true&createDatabaseIfNotExist=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+
